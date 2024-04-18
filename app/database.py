@@ -4,7 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 # from .config import Settings
 
-SQLALCHEMY_DATABASE_URL = f"sqlite:///./social_media.db"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./social_media.db"
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
