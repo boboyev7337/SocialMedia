@@ -3,7 +3,7 @@ from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
 
-from .database import Base
+from .database import Base, engine
 
 
 class User(Base):
@@ -43,3 +43,5 @@ class Like(Base):
     created = Column(DateTime, default=datetime.utcnow)
     post = relationship(Post, backref='likes')
     owner = relationship(User, backref='likes')
+
+Base.metadata.create_all(bind=engine)
