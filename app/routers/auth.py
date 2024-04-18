@@ -7,12 +7,12 @@ from app.schemes import Token
 from app.services.oauth2 import create_access_token
 from app.services.utils import verify
 
-router = APIRouter(prefix='/auth', tags=['auth'])
+router = APIRouter(tags=['auth'])
 
 
 @router.post('/login', status_code=200, response_model=Token)
-def login(user: OAuth2PasswordRequestForm=Depends(), db=Depends(get_db())):
-    query = db.query(User).filter(User.email == user.email).first()
+def login(user: OAuth2PasswordRequestForm = Depends(), db=Depends(get_db)):
+    query = db.query(User).filter(User.email == user.username).first()
 
     if not query:
         raise HTTPException(status_code=409, detail="Invalid User email")

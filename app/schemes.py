@@ -4,10 +4,14 @@ from pydantic import BaseModel, EmailStr
 
 
 class UserCreate(BaseModel):
+    email: EmailStr
     password: str
 
+    class Config:
+        orm_mode = True
 
-class UserOutput(BaseModel):
+
+class UserOutPut(BaseModel):
     created: datetime
 
     class Config:
@@ -20,4 +24,15 @@ class Token(BaseModel):
 
 
 class TokenData(BaseModel):
-    email: EmailStr
+    user_id: int
+
+
+class PostCreate(BaseModel):
+    title: str
+    content: str
+
+
+class PostOutPut(PostCreate):
+    id: int
+    created: datetime
+    owner: UserOutPut
