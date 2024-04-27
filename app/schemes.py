@@ -7,11 +7,10 @@ class UserCreate(BaseModel):
     email: EmailStr
     password: str
 
-    # class Config:
-    #     orm_mode = True
 
-
-class UserOutPut(BaseModel):
+class UserOutput(BaseModel):
+    id: int
+    email: EmailStr
     created: datetime
 
     class Config:
@@ -32,7 +31,7 @@ class CommentCreate(BaseModel):
     content: str
 
 
-class CommentOutPut(CommentCreate):
+class CommentOutput(BaseModel):
     id: int
     content: str
     created: datetime
@@ -43,17 +42,38 @@ class PostCreate(BaseModel):
     content: str
 
 
-class PostOutPut(PostCreate):
+class PostOutput(PostCreate):
     id: int
     created: datetime
-    owner: UserOutPut
+    owner: UserOutput
 
 
-class PostOutPutAll(PostCreate):
+class PostOutputAll(PostCreate):
     id: int
     created: datetime
-    comments: list[CommentOutPut]
+    comments: list[CommentOutput]
 
 
-class LikeSchemas(BaseModel):
+class LikeSchema(BaseModel):
     post_id: int
+
+
+class AllFriendSchemaFollower(BaseModel):
+    id: int
+    follower: UserOutput
+    is_following: bool
+
+
+class AllFriendSchemaFollowing(BaseModel):
+    id: int
+    following: UserOutput
+    is_following: bool
+
+
+class RoomCreate(BaseModel):
+    name: str
+
+
+class RoomOutput(RoomCreate):
+    id: int
+    created: datetime
